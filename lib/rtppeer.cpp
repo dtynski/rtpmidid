@@ -384,7 +384,8 @@ void rtppeer::parse_midi(io_bytes_reader &buffer) {
 
   // RFC 6295 RTP-MIDI _header
   // The Flags are:
-  // B = has long header
+  // B = has 
+  
   // J = has journal
   // Z = delta time on first MIDI-command present
   // P = no status byte in original midi command
@@ -393,7 +394,7 @@ void rtppeer::parse_midi(io_bytes_reader &buffer) {
   if ((header & 0x80) != 0) {
     length <<= 8;
     length += buffer.read_uint8();
-    WARNING(header);
+    printOut(buffer);
   }
   if ((header & 0x40) != 0) {
     // I actually parse the journal BEFORE the current message as it is
