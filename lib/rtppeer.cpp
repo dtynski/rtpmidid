@@ -394,7 +394,9 @@ void rtppeer::parse_midi(io_bytes_reader &buffer) {
   if ((header & 0x80) != 0) {
     length <<= 8;
     length += buffer.read_uint8();
-    parse_journal(header);
+    io_bytes_reader header_data = buffer;
+    header_data.position += length;
+    parse_journal(header_data);
   }
   if ((header & 0x40) != 0) {
     // I actually parse the journal BEFORE the current message as it is
